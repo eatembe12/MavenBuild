@@ -1,68 +1,80 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.java.example</groupId>
-  <artifactId>java-example</artifactId>
-  <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-    <build>
-        <finalName>java-example</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-        </plugins>
-  </build>
-  <profiles>
-    <profile>
-      <id>coverage-per-test</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <!-- Minimal supported version is 2.4 -->
-            <version>2.13</version>
+
+  <!-- Moodycode.com base maven configuration example -->
+
+  <properties>
+    <jdk.version>1.8</jdk.version>
+  </properties>
+
+  <groupId>com.moodycode</groupId>
+  <artifactId>ExampleApplicationMavenDemo</artifactId>
+  <version>1.0</version>
+
+
+  <build>
+    <!-- Set resources directory -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+
+
+    <plugins>
+
+      <!-- Set Compiler version -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>${jdk.version}</source>
+          <target>${jdk.version}</target>
+        </configuration>
+      </plugin>
+
+
+      <!-- Copy project dependencies -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.5.1</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
             <configuration>
-              <properties>
-                <property>
-                  <name>listener</name>
-                  <value>org.sonar.java.jacoco.JUnitListener</value>
-                </property>
-              </properties>
+              <includeScope>runtime</includeScope>
+              <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
             </configuration>
-          </plugin>
-        </plugins>
-      </build>
-      <dependencies>
-        <dependency>
-          <groupId>org.sonarsource.java</groupId>
-          <artifactId>sonar-jacoco-listeners</artifactId>
-          <version>3.8</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-  </profiles>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+
+
+  </build>
+
+  <dependencies>
+    <!-- PUT DEPENDENCIES HERE
+
+
+    -->
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>2.9.9</version>
+    </dependency>
+
+  </dependencies>
+
+
 </project>
